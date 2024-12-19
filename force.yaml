@@ -124,3 +124,10 @@ dns:
       - 240.0.0.0/4
 rules:
   - RULE-SET,collection,🎯 全球直连,no-resolve
+rule-providers:
+  collection: 
+    type: http
+    behavior: classical
+    format: yaml
+    path: ./rules/collection.yaml
+    url: "https://www.thebigpicture.top/sub/collection.yaml"
