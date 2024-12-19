@@ -16,6 +16,6 @@ DOMAIN,v.thebigpicture.top
 DOMAIN-KEYWORD,oracle
 DOMAIN-KEYWORD,cloudflare
 DOMAIN-KEYWORD,hostloc
-DOMAIN,bili.bili.rip
-DOMAIN,cf.bili.rip
 DOMAIN,www.nicept.net
+IP-CIDR,10.8.0.0/8,no-resolve
+IP-CIDR,192.168.88.0/8,no-resolve
