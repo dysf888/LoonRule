@@ -3,6 +3,7 @@
 
 # ACL4SSR标志 如没有，代表不是用ACL4SSR规则
 DOMAIN-SUFFIX,acl4.ssr
+DOMAIN-SUFFIX,new.36013602
 GEOIP,CN,no-resolve
 RULE-SET,collection,no-resolve
 # 本地/局域网地址
