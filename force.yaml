@@ -6,34 +6,66 @@ log-level: info
 external-controller: :9090
 dns:
   enable: true
-  ipv6: false
-  default-nameserver:
-    - 223.5.5.5
-    - 223.6.6.6
-  nameserver:
-    - 1.1.1.1
-    - 8.8.8.8
-  fallback:
-    - tls://1.1.1.1:853
-    - tls://8.8.8.8:853
-  fallback-filter:
-    geoip: true
-    geoip-code: CN
-    ipcidr:
-      - 240.0.0.0/4
+  ipv6: true
+  listen: :53
+  use-hosts: true
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter:
-    - '*.lan'
-    - 'localhost.ptlogin2.qq.com'
-    - 'dns.msftncsi.com'
-    - 'www.msftncsi.com'
-    - 'www.msftconnecttest.com'
-
-rule-providers:
-  collection: 
-    type: http
-    behavior: classical
-    format: yaml
-    path: ./rules/collection.yaml
-    url: "https://www.thebigpicture.top/sub/collection.yaml"
+    - +.stun.*.*
+    - +.stun.*.*.*
+    - +.stun.*.*.*.*
+    - +.stun.*.*.*.*.*
+    - "*.n.n.srv.nintendo.net"
+    - +.stun.playstation.net
+    - xbox.*.*.microsoft.com
+    - "*.*.xboxlive.com"
+    - "*.msftncsi.com"
+    - "*.msftconnecttest.com"
+    - WORKGROUP
+    - +.*
+  default-nameserver:
+    - tls://223.5.5.5
+    - tls://223.6.6.6
+  nameserver:
+    - tls://1.1.1.1
+    - tls://1.0.0.1
+    - https://1.1.1.1/dns-query
+    - https://1.0.0.1/dns-query
+  nameserver-policy:
+    +.163yun.com: tls://223.5.5.5
+    +.163.com: tls://223.5.5.5
+    +.netease.com: tls://223.5.5.5
+    +.163jiasu.com: tls://223.5.5.5
+    +.miyoushe.com: tls://223.5.5.5
+    +.bilibili.*: tls://223.5.5.5
+    +.tencent.com: tls://223.5.5.5
+    +.qq.*: tls://223.5.5.5
+    +.baidu.*: tls://223.5.5.5
+    +.taobao.com: tls://223.5.5.5
+    +.apiintl.biliapi.net: tls://223.5.5.5
+    +.upos-hz-mirrorakam.akamaized.net: tls://223.5.5.5
+    +.acg.tv: tls://223.5.5.5
+    +.acgvideo.com: tls://223.5.5.5
+    +.b23.tv: tls://223.5.5.5
+    +.biliapi.*: tls://223.5.5.5
+    +.biligame.*: tls://223.5.5.5
+    +.bilivideo.*: tls://223.5.5.5
+    +.hdslb.com: tls://223.5.5.5
+    +.im9.com: tls://223.5.5.5
+    +.smtcdns.net: tls://223.5.5.5
+    +.360buy.*: tls://223.5.5.5
+    +.alicdn.*: tls://223.5.5.5
+    +.alimama.*: tls://223.5.5.5
+    +.alipay.*: tls://223.5.5.5
+    +.appzapp.*: tls://223.5.5.5
+    +.baidupcs.*: tls://223.5.5.5
+    +.ccgslb.*: tls://223.5.5.5
+    +.duobao.*: tls://223.5.5.5
+    +.jdpay.*: tls://223.5.5.5
+    +.moke.*: tls://223.5.5.5
+    +.qhimg.*: tls://223.5.5.5
+    +.vpimg.*: tls://223.5.5.5
+    +.xiami.*: tls://223.5.5.5
+    +.xiaomi.*: tls://223.5.5.5
+    +.cn: tls://223.5.5.5
