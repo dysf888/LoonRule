@@ -121,4 +121,4 @@ dns:
     geoip: true
     geoip-code: CN
     ipcidr:
-      - 240.0.0.0/4</pre>
+      - 240.0.0.0/4
