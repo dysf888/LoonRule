@@ -1,71 +1,199 @@
 port: 7890
 socks-port: 7891
 allow-lan: true
-mode: Rule
+mode: rule
 log-level: info
-external-controller: :9090
+external-controller: 0.0.0.0:9090
+redir-port: 7892
+tproxy-port: 7895
+mixed-port: 7890
+secret: 123456
+bind-address: "*"
+ipv6: false
+geodata-mode: true
+geodata-loader: standard
+tcp-concurrent: false
+tun:
+  enable: false
+  stack: system
+  dns-hijack:
+    - any:53
+  auto-redir: true
 dns:
   enable: true
-  ipv6: true
-  listen: :53
-  use-hosts: true
+  ipv6: false
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
+  listen: 0.0.0.0:7874
+  default-nameserver:
+    - 10.0.0.1
+    - 1.1.1.1
+    - 1.0.0.1
+  nameserver:
+    - https://dns.cloudflare.com/dns-query#Proxies
+    - https://1.1.1.1/dns-query#Proxies
+    - 1.1.1.1#Proxies
+    - 1.0.0.1#Proxies
+  nameserver-policy:
+    +.xn--ngstr-lra8j.com: 1.1.1.1#Proxies
+    +.googleapis.cn: 1.1.1.1#Proxies
+    +.google.cn: 1.1.1.1#Proxies
+    +.pub.3gppnetwork.org:
+     - https://dns.alidns.com/dns-query#h3=true
+     #- 10.0.0.1
+    "geosite:cn": 
+     - https://dns.alidns.com/dns-query#h3=true
+     #- 10.0.0.1
+    "geosite:geolocation-!cn":
+     - https://dns.cloudflare.com/dns-query#Proxies&#h3=true
+     - https://1.1.1.1/dns-query#Proxies&#h3=true
+  fallback:
+    - https://dns.cloudflare.com/dns-query#Proxies&#h3=true
+    - https://1.1.1.1/dns-query#Proxies&#h3=true
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    ipcidr:
+      - 0.0.0.0/8
+      - 10.0.0.0/8
+      - 100.64.0.0/10
+      - 127.0.0.0/8
+      - 169.254.0.0/16
+      - 172.16.0.0/12
+      - 192.0.0.0/24
+      - 192.0.2.0/24
+      - 192.88.99.0/24
+      - 192.168.0.0/16
+      - 198.18.0.0/15
+      - 198.51.100.0/24
+      - 203.0.113.0/24
+      - 224.0.0.0/4
+      - 240.0.0.0/4
+      - 255.255.255.255/32
+    domain:
+      - +.google.com
+      - +.facebook.com
+      - +.youtube.com
+      - +.githubusercontent.com
+      - +.googlevideo.com
+      - +.msftconnecttest.com
+      - +.msftncsi.com
+      - msftconnecttest.com
+      - msftncsi.com
   fake-ip-filter:
-    - +.stun.*.*
-    - +.stun.*.*.*
-    - +.stun.*.*.*.*
-    - +.stun.*.*.*.*.*
+    - tracker.m-team.cc
+    - "*.parsec.app"
+    - "*.*.plex.direct"
+    - "*.argotunnel.com"
+    - "*.*.argotunnel.com"
+    - argotunnel.com
+    - "*.lan"
+    - "*.localdomain"
+    - "*.example"
+    - "*.invalid"
+    - "*.localhost"
+    - "*.test"
+    - "*.local"
+    - "*.home.arpa"
+    - time.*.com
+    - time.*.gov
+    - time.*.edu.cn
+    - time.*.apple.com
+    - time-ios.apple.com
+    - time1.*.com
+    - time2.*.com
+    - time3.*.com
+    - time4.*.com
+    - time5.*.com
+    - time6.*.com
+    - time7.*.com
+    - ntp.*.com
+    - ntp1.*.com
+    - ntp2.*.com
+    - ntp3.*.com
+    - ntp4.*.com
+    - ntp5.*.com
+    - ntp6.*.com
+    - ntp7.*.com
+    - "*.time.edu.cn"
+    - "*.ntp.org.cn"
+    - +.pool.ntp.org
+    - time1.cloud.tencent.com
+    - music.163.com
+    - "*.music.163.com"
+    - "*.126.net"
+    - musicapi.taihe.com
+    - music.taihe.com
+    - songsearch.kugou.com
+    - trackercdn.kugou.com
+    - "*.kuwo.cn"
+    - api-jooxtt.sanook.com
+    - api.joox.com
+    - joox.com
+    - y.qq.com
+    - "*.y.qq.com"
+    - streamoc.music.tc.qq.com
+    - mobileoc.music.tc.qq.com
+    - isure.stream.qqmusic.qq.com
+    - dl.stream.qqmusic.qq.com
+    - aqqmusic.tc.qq.com
+    - amobile.music.tc.qq.com
+    - "*.xiami.com"
+    - "*.music.migu.cn"
+    - music.migu.cn
+    - +.msftconnecttest.com
+    - +.msftncsi.com
+    - msftconnecttest.com
+    - msftncsi.com
+    - localhost.ptlogin2.qq.com
+    - localhost.sec.qq.com
+    - +.srv.nintendo.net
     - "*.n.n.srv.nintendo.net"
     - +.stun.playstation.net
     - xbox.*.*.microsoft.com
     - "*.*.xboxlive.com"
-    - "*.msftncsi.com"
-    - "*.msftconnecttest.com"
-    - WORKGROUP
-    - +.*
-  default-nameserver:
-    - tls://223.5.5.5
-    - tls://223.6.6.6
-  nameserver:
-    - tls://1.1.1.1
-    - tls://1.0.0.1
-    - https://1.1.1.1/dns-query
-    - https://1.0.0.1/dns-query
-  nameserver-policy:
-    +.163yun.com: tls://223.5.5.5
-    +.163.com: tls://223.5.5.5
-    +.netease.com: tls://223.5.5.5
-    +.163jiasu.com: tls://223.5.5.5
-    +.miyoushe.com: tls://223.5.5.5
-    +.bilibili.*: tls://223.5.5.5
-    +.tencent.com: tls://223.5.5.5
-    +.qq.*: tls://223.5.5.5
-    +.baidu.*: tls://223.5.5.5
-    +.taobao.com: tls://223.5.5.5
-    +.apiintl.biliapi.net: tls://223.5.5.5
-    +.upos-hz-mirrorakam.akamaized.net: tls://223.5.5.5
-    +.acg.tv: tls://223.5.5.5
-    +.acgvideo.com: tls://223.5.5.5
-    +.b23.tv: tls://223.5.5.5
-    +.biliapi.*: tls://223.5.5.5
-    +.biligame.*: tls://223.5.5.5
-    +.bilivideo.*: tls://223.5.5.5
-    +.hdslb.com: tls://223.5.5.5
-    +.im9.com: tls://223.5.5.5
-    +.smtcdns.net: tls://223.5.5.5
-    +.360buy.*: tls://223.5.5.5
-    +.alicdn.*: tls://223.5.5.5
-    +.alimama.*: tls://223.5.5.5
-    +.alipay.*: tls://223.5.5.5
-    +.appzapp.*: tls://223.5.5.5
-    +.baidupcs.*: tls://223.5.5.5
-    +.ccgslb.*: tls://223.5.5.5
-    +.duobao.*: tls://223.5.5.5
-    +.jdpay.*: tls://223.5.5.5
-    +.moke.*: tls://223.5.5.5
-    +.qhimg.*: tls://223.5.5.5
-    +.vpimg.*: tls://223.5.5.5
-    +.xiami.*: tls://223.5.5.5
-    +.xiaomi.*: tls://223.5.5.5
-    +.cn: tls://223.5.5.5
+    - xbox.*.microsoft.com
+    - xnotify.xboxlive.com
+    - +.battlenet.com.cn
+    - +.wotgame.cn
+    - +.wggames.cn
+    - +.wowsgame.cn
+    - +.wargaming.net
+    - proxy.golang.org
+    - stun.*.*
+    - stun.*.*.*
+    - +.stun.*.*
+    - +.stun.*.*.*
+    - +.stun.*.*.*.*
+    - +.stun.*.*.*.*.*
+    - heartbeat.belkin.com
+    - "*.linksys.com"
+    - "*.linksyssmartwifi.com"
+    - "*.router.asus.com"
+    - mesu.apple.com
+    - swscan.apple.com
+    - swquery.apple.com
+    - swdownload.apple.com
+    - swcdn.apple.com
+    - swdist.apple.com
+    - lens.l.google.com
+    - stun.l.google.com
+    - +.nflxvideo.net
+    - "*.square-enix.com"
+    - "*.finalfantasyxiv.com"
+    - "*.ffxiv.com"
+    - "*.ff14.sdo.com"
+    - ff.dorado.sdo.com
+    - "*.mcdn.bilivideo.cn"
+    - +.media.dssott.com
+    - shark007.net
+    - Mijia Cloud
+    - +.dns.google
+sniffer:
+  enable: false
+  sniffing:
+    - tls
+    - http
+profile:
+  store-selected: true
+  store-fake-ip: true
