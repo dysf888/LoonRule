@@ -18,5 +18,3 @@ DOMAIN-KEYWORD,oracle
 DOMAIN-KEYWORD,cloudflare
 DOMAIN-KEYWORD,hostloc
 DOMAIN,www.nicept.net
-IP-CIDR,10.8.0.0/8,no-resolve
-IP-CIDR,192.168.88.0/8,no-resolve
