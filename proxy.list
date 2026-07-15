@@ -19,5 +19,5 @@ DOMAIN-KEYWORD,oracle
 DOMAIN-KEYWORD,cloudflare
 DOMAIN-KEYWORD,hostloc
 DOMAIN,www.nicept.net
-DOMAIN-KEYWORD,hytron.io
-DOMAIN-KEYWORD,botcf.com
+DOMAIN-SUFFIX,hytron.io
+DOMAIN-SUFFIX,botcf.com
